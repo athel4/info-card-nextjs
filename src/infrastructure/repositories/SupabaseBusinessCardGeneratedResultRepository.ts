@@ -48,8 +48,8 @@ export class SupabaseBusinessCardGeneratedResultRepository implements BusinessCa
       .select()
       .single();
 
-    if (error) {
-      throw new Error(`Failed to create generated result: ${error.message}`);
+    if (error || !data) {
+      throw new Error(error?.message || 'Failed to create generated result');
     }
 
     return this.mapToEntity(data);
@@ -71,8 +71,8 @@ export class SupabaseBusinessCardGeneratedResultRepository implements BusinessCa
       .select()
       .single();
 
-    if (error) {
-      throw new Error(`Failed to update generated result: ${error.message}`);
+    if (error || !data) {
+      throw new Error(error?.message || 'Failed to update generated result');
     }
 
     return this.mapToEntity(data);

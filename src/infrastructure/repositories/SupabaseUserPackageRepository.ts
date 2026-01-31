@@ -132,7 +132,7 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
   }
 
   async updateUserPackage(id: string, data: Partial<UserPackage>): Promise<UserPackage> {
-    const { data: userPackage } = await supabase
+    const { data: userPackage, error } = await supabase
       .from('user_packages')
       .update({
         credits_remaining: data.creditsRemaining,
@@ -152,6 +152,10 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
         packages (*)
       `)
       .single();
+
+    if (error || !userPackage) {
+      throw new Error(error?.message || 'Failed to update user package');
+    }
 
     return {
       id: userPackage.id,
@@ -232,7 +236,7 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
   }
 
   async createUserPackage(data: Omit<UserPackage, 'id'>): Promise<UserPackage> {
-    const { data: userPackage } = await supabase
+    const { data: userPackage, error } = await supabase
       .from('user_packages')
       .insert({
         user_id: data.userId,
@@ -254,6 +258,10 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
         packages (*)
       `)
       .single();
+
+    if (error || !userPackage) {
+      throw new Error(error?.message || 'Failed to create user package');
+    }
 
     return {
       id: userPackage.id,

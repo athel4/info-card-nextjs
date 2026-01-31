@@ -44,7 +44,9 @@ export class SupabaseUserPackageHistoryRepository implements UserPackageHistoryR
       .select()
       .single();
 
-    if (error) throw error;
+    if (error || !data) {
+      throw error || new Error('Failed to create user package history');
+    }
 
     return {
       id: data.id,

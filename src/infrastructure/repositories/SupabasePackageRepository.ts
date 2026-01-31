@@ -85,7 +85,7 @@ export class SupabasePackageRepository implements PackageRepository {
   }
 
   async createPackage(data: Omit<Package, 'id' | 'createdAt' | 'updatedAt'>): Promise<Package> {
-    const { data: pkg } = await supabase
+    const { data: pkg, error } = await supabase
       .from('packages')
       .insert({
         name: data.name,
@@ -98,6 +98,10 @@ export class SupabasePackageRepository implements PackageRepository {
       })
       .select()
       .single();
+
+    if (error || !pkg) {
+      throw new Error(error?.message || 'Failed to create package');
+    }
 
     return {
       id: pkg.id,
@@ -119,7 +123,7 @@ export class SupabasePackageRepository implements PackageRepository {
   }
 
   async updatePackage(id: string, data: Partial<Package>): Promise<Package> {
-    const { data: pkg } = await supabase
+    const { data: pkg, error } = await supabase
       .from('packages')
       .update({
         name: data.name,
@@ -133,6 +137,10 @@ export class SupabasePackageRepository implements PackageRepository {
       .eq('id', id)
       .select()
       .single();
+
+    if (error || !pkg) {
+      throw new Error(error?.message || 'Failed to update package');
+    }
 
     return {
       id: pkg.id,

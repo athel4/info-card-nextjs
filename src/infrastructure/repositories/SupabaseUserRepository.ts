@@ -65,7 +65,7 @@ export class SupabaseUserRepository implements UserRepository {
   }
 
   async updateUser(id: string, data: Partial<User>): Promise<User> {
-    const { data: profile } = await supabase
+    const { data: profile, error } = await supabase
       .from('profiles')
       .update({
         full_name: data.fullName,
@@ -74,6 +74,10 @@ export class SupabaseUserRepository implements UserRepository {
       .eq('id', id)
       .select()
       .single();
+
+    if (error || !profile) {
+      throw new Error(error?.message || 'Failed to update user');
+    }
 
     return {
       id: profile.id,

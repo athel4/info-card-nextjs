@@ -63,7 +63,9 @@ export class SupabaseTemplateRepository implements TemplateRepository {
       .select()
       .single();
 
-    if (error) throw error;
+    if (error || !data) {
+      throw error || new Error('Failed to create template');
+    }
     return this.mapToTemplate(data);
   }
 
@@ -89,7 +91,9 @@ export class SupabaseTemplateRepository implements TemplateRepository {
       .select()
       .single();
 
-    if (error) throw error;
+    if (error || !data) {
+      throw error || new Error('Failed to update template');
+    }
     return this.mapToTemplate(data);
   }
 
