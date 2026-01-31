@@ -17,13 +17,13 @@ export class SupabaseContactOutreachRepository implements ContactOutreachReposit
     // Transform to ContactOutreachAction format
     const actions: ContactOutreachAction[] = results?.map((result: any) => ({
       id: result.id,
-      contactId: result.contact_id,
-      type: result.type,
-      title: result.title,
-      content: result.content,
-      actionUrl: result.action_url,
+      contactId: result.contact_id ?? undefined,
+      type: result.type ?? '',
+      title: result.title ?? undefined,
+      content: result.content ?? undefined,
+      actionUrl: result.action_url ?? undefined,
       isGenerated: true,
-      templateId: result.metadata?.template_id,
+      templateId: result.metadata?.template_id ?? undefined,
       createdAt: new Date(result.created_at || Date.now())
     })) || [];
 

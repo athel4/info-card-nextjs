@@ -18,10 +18,10 @@ export class SupabaseUserRepository implements UserRepository {
 
     return {
       id: profile.id,
-      email: profile.email,
-      fullName: profile.full_name,
-      role: profile.role,
-      stripeAccId: (profile as any).stripe_acc_id || undefined,
+      email: profile.email ?? undefined,
+      fullName: profile.full_name ?? undefined,
+      role: profile.role ?? 'user',
+      stripeAccId: (profile as any).stripe_acc_id ?? undefined,
       createdAt: new Date(profile.created_at || Date.now()),
       updatedAt: new Date(profile.updated_at || Date.now())
     };
@@ -38,10 +38,10 @@ export class SupabaseUserRepository implements UserRepository {
 
     return {
       id: profile.id,
-      email: profile.email,
-      fullName: profile.full_name,
-      role: profile.role,
-      stripeAccId: (profile as any).stripe_acc_id || undefined,
+      email: profile.email ?? undefined,
+      fullName: profile.full_name ?? undefined,
+      role: profile.role ?? 'user',
+      stripeAccId: (profile as any).stripe_acc_id ?? undefined,
       createdAt: new Date(profile.created_at || Date.now()),
       updatedAt: new Date(profile.updated_at || Date.now())
     };
@@ -55,10 +55,10 @@ export class SupabaseUserRepository implements UserRepository {
 
     return profiles?.map(profile => ({
       id: profile.id,
-      email: profile.email,
-      fullName: profile.full_name,
-      role: profile.role,
-      stripeAccId: (profile as any).stripe_acc_id || undefined,
+      email: profile.email ?? undefined,
+      fullName: profile.full_name ?? undefined,
+      role: profile.role ?? 'user',
+      stripeAccId: (profile as any).stripe_acc_id ?? undefined,
       createdAt: new Date(profile.created_at || Date.now()),
       updatedAt: new Date(profile.updated_at || Date.now())
     })) || [];
@@ -81,10 +81,10 @@ export class SupabaseUserRepository implements UserRepository {
 
     return {
       id: profile.id,
-      email: profile.email,
-      fullName: profile.full_name,
-      role: profile.role,
-      stripeAccId: (profile as any).stripe_acc_id || undefined,
+      email: profile.email ?? undefined,
+      fullName: profile.full_name ?? undefined,
+      role: profile.role ?? 'user',
+      stripeAccId: (profile as any).stripe_acc_id ?? undefined,
       createdAt: new Date(profile.created_at || Date.now()),
       updatedAt: new Date(profile.updated_at || Date.now())
     };

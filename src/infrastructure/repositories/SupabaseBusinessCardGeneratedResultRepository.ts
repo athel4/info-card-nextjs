@@ -103,13 +103,13 @@ export class SupabaseBusinessCardGeneratedResultRepository implements BusinessCa
   private mapToEntity(data: any): BusinessCardGeneratedResult {
     return {
       id: data.id,
-      sessionId: data.session_id,
-      contactId: data.contact_id,
-      type: data.type,
-      title: data.title,
-      content: data.content,
-      actionUrl: data.action_url,
-      metadata: data.metadata,
+      sessionId: data.session_id ?? undefined,
+      contactId: data.contact_id ?? undefined,
+      type: data.type ?? '',
+      title: data.title ?? undefined,
+      content: data.content ?? undefined,
+      actionUrl: data.action_url ?? undefined,
+      metadata: data.metadata ?? undefined,
       createdAt: new Date(data.created_at || Date.now()),
       updatedAt: new Date(data.updated_at || Date.now())
     };
