@@ -63,7 +63,9 @@ export class SupabaseTemplateRepository implements TemplateRepository {
       .select()
       .single();
 
-    if (error) throw error;
+    if (error || !data) {
+      throw error || new Error('Failed to create template');
+    }
     return this.mapToTemplate(data);
   }
 
@@ -89,7 +91,9 @@ export class SupabaseTemplateRepository implements TemplateRepository {
       .select()
       .single();
 
-    if (error) throw error;
+    if (error || !data) {
+      throw error || new Error('Failed to update template');
+    }
     return this.mapToTemplate(data);
   }
 
@@ -120,21 +124,21 @@ export class SupabaseTemplateRepository implements TemplateRepository {
   private mapToTemplate(data: any): Template {
     return {
       id: data.id,
-      userId: data.user_id,
-      name: data.name,
-      title: data.title,
-      description: data.description,
-      promptText: data.prompt_text,
-      templateType: data.template_type,
-      patternText: data.pattern_text,
-      flexibilityLevel: data.flexibility_level as 'strict' | 'medium' | 'flexible',
+      userId: data.user_id ?? undefined,
+      name: data.name ?? '',
+      title: data.title ?? undefined,
+      description: data.description ?? undefined,
+      promptText: data.prompt_text ?? '',
+      templateType: data.template_type ?? 'business_card',
+      patternText: data.pattern_text ?? undefined,
+      flexibilityLevel: (data.flexibility_level as 'strict' | 'medium' | 'flexible') ?? 'medium',
       requiredPlaceholders: data.required_placeholders || [],
-      generationCost: data.generation_cost || 2,
-      isActive: data.is_active,
-      sortOrder: data.sort_order || 0,
-      showInAnalyzerPage: data.show_in_analyzer_page || true,
-      createdAt: new Date(data.created_at),
-      updatedAt: new Date(data.updated_at)
+      generationCost: data.generation_cost ?? 2,
+      isActive: data.is_active ?? false,
+      sortOrder: data.sort_order ?? 0,
+      showInAnalyzerPage: data.show_in_analyzer_page ?? true,
+      createdAt: new Date(data.created_at || Date.now()),
+      updatedAt: new Date(data.updated_at || Date.now())
     };
   }
 }

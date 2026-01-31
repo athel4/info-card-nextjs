@@ -22,6 +22,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { getAnonymousSessionId } from '../utils/anonymousSession';
 import { SEOHead } from '@/components/SEOHead';
 import { sanitizeForLog } from '@/utils/security';
+import { useApplicationServices } from '@/presentation/contexts/ApplicationServiceContext';
 
 // Check if running as PWA
 const isPWA = () => {
@@ -52,6 +53,7 @@ const Index = () => {
   const { canProcess, refreshCredits, dailyCredits, creditInfo, getTotalRemainingCredits } = useCredit();
   const { toast } = useToast();
   const { templates, isLoading } = useUserTemplates();
+  const { businessCardService } = useApplicationServices();
 
   // Pull-to-refresh handlers
   const handleRefresh = async () => {

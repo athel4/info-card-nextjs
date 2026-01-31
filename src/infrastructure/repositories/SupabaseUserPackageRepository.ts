@@ -19,9 +19,9 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
       packageId: up.package_id,
       creditsRemaining: up.credits_remaining,
       creditsUsed: up.credits_used,
-      startedAt: new Date(up.started_at),
+      startedAt: new Date(up.started_at || Date.now()),
       expiresAt: up.expires_at ? new Date(up.expires_at) : undefined,
-      isActive: up.is_active,
+      isActive: up.is_active ?? false,
       package: up.packages ? {
         id: up.packages.id,
         name: up.packages.name,
@@ -29,11 +29,11 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
         creditLimit: up.packages.credit_limit,
         priceMonthly: parseFloat(String(up.packages.price_monthly || '0')),
         features: (up.packages.features as string[]) || [],
-        isActive: up.packages.is_active,
-        createdAt: new Date(up.packages.created_at),
-        updatedAt: new Date(up.packages.updated_at),
+        isActive: up.packages.is_active ?? false,
+        createdAt: new Date(up.packages.created_at || Date.now()),
+        updatedAt: new Date(up.packages.updated_at || Date.now()),
         billingInterval: (up.packages.billing_interval as 'monthly' | 'yearly') || 'monthly',
-        stripeYearlyPriceId: up.packages.stripe_yearly_price_id,
+        stripeYearlyPriceId: up.packages.stripe_yearly_price_id ?? undefined,
         isSubscription: up.packages.is_subscription || false
       } : undefined,
       stripeSubscriptionId: up.stripe_subscription_id || undefined,
@@ -60,9 +60,9 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
       packageId: up.package_id,
       creditsRemaining: up.credits_remaining,
       creditsUsed: up.credits_used,
-      startedAt: new Date(up.started_at),
+      startedAt: new Date(up.started_at || Date.now()),
       expiresAt: up.expires_at ? new Date(up.expires_at) : undefined,
-      isActive: up.is_active,
+      isActive: up.is_active ?? false,
       package: up.packages ? {
         id: up.packages.id,
         name: up.packages.name,
@@ -70,11 +70,11 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
         creditLimit: up.packages.credit_limit,
         priceMonthly: parseFloat(String(up.packages.price_monthly || '0')),
         features: (up.packages.features as string[]) || [],
-        isActive: up.packages.is_active,
-        createdAt: new Date(up.packages.created_at),
-        updatedAt: new Date(up.packages.updated_at),
+        isActive: up.packages.is_active ?? false,
+        createdAt: new Date(up.packages.created_at || Date.now()),
+        updatedAt: new Date(up.packages.updated_at || Date.now()),
         billingInterval: (up.packages.billing_interval as 'monthly' | 'yearly') || 'monthly',
-        stripeYearlyPriceId: up.packages.stripe_yearly_price_id,
+        stripeYearlyPriceId: up.packages.stripe_yearly_price_id ?? undefined,
         isSubscription: up.packages.is_subscription || false
       } : undefined,
       stripeSubscriptionId: up.stripe_subscription_id || undefined,
@@ -105,9 +105,9 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
       packageId: userPackage.package_id,
       creditsRemaining: userPackage.credits_remaining,
       creditsUsed: userPackage.credits_used,
-      startedAt: new Date(userPackage.started_at),
+      startedAt: new Date(userPackage.started_at || Date.now()),
       expiresAt: userPackage.expires_at ? new Date(userPackage.expires_at) : undefined,
-      isActive: userPackage.is_active,
+      isActive: userPackage.is_active ?? false,
       package: userPackage.packages ? {
         id: userPackage.packages.id,
         name: userPackage.packages.name,
@@ -115,11 +115,11 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
         creditLimit: userPackage.packages.credit_limit,
         priceMonthly: parseFloat(String(userPackage.packages.price_monthly || '0')),
         features: (userPackage.packages.features as string[]) || [],
-        isActive: userPackage.packages.is_active,
-        createdAt: new Date(userPackage.packages.created_at),
-        updatedAt: new Date(userPackage.packages.updated_at),
+        isActive: userPackage.packages.is_active ?? false,
+        createdAt: new Date(userPackage.packages.created_at || Date.now()),
+        updatedAt: new Date(userPackage.packages.updated_at || Date.now()),
         billingInterval: (userPackage.packages.billing_interval as 'monthly' | 'yearly') || 'monthly',
-        stripeYearlyPriceId: userPackage.packages.stripe_yearly_price_id,
+        stripeYearlyPriceId: userPackage.packages.stripe_yearly_price_id ?? undefined,
         isSubscription: userPackage.packages.is_subscription || false
       } : undefined,
       stripeSubscriptionId: userPackage.stripe_subscription_id || undefined,
@@ -132,7 +132,7 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
   }
 
   async updateUserPackage(id: string, data: Partial<UserPackage>): Promise<UserPackage> {
-    const { data: userPackage } = await supabase
+    const { data: userPackage, error } = await supabase
       .from('user_packages')
       .update({
         credits_remaining: data.creditsRemaining,
@@ -153,15 +153,19 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
       `)
       .single();
 
+    if (error || !userPackage) {
+      throw new Error(error?.message || 'Failed to update user package');
+    }
+
     return {
       id: userPackage.id,
       userId: userPackage.user_id,
       packageId: userPackage.package_id,
       creditsRemaining: userPackage.credits_remaining,
       creditsUsed: userPackage.credits_used,
-      startedAt: new Date(userPackage.started_at),
+      startedAt: new Date(userPackage.started_at || Date.now()),
       expiresAt: userPackage.expires_at ? new Date(userPackage.expires_at) : undefined,
-      isActive: userPackage.is_active,
+      isActive: userPackage.is_active ?? false,
       package: userPackage.packages ? {
         id: userPackage.packages.id,
         name: userPackage.packages.name,
@@ -169,11 +173,11 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
         creditLimit: userPackage.packages.credit_limit,
         priceMonthly: parseFloat(String(userPackage.packages.price_monthly || '0')),
         features: (userPackage.packages.features as string[]) || [],
-        isActive: userPackage.packages.is_active,
-        createdAt: new Date(userPackage.packages.created_at),
-        updatedAt: new Date(userPackage.packages.updated_at),
+        isActive: userPackage.packages.is_active ?? false,
+        createdAt: new Date(userPackage.packages.created_at || Date.now()),
+        updatedAt: new Date(userPackage.packages.updated_at || Date.now()),
         billingInterval: (userPackage.packages.billing_interval as 'monthly' | 'yearly') || 'monthly',
-        stripeYearlyPriceId: userPackage.packages.stripe_yearly_price_id,
+        stripeYearlyPriceId: userPackage.packages.stripe_yearly_price_id ?? undefined,
         isSubscription: userPackage.packages.is_subscription || false
       } : undefined,
       stripeSubscriptionId: userPackage.stripe_subscription_id || undefined,
@@ -205,9 +209,9 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
       packageId: userPackage.package_id,
       creditsRemaining: userPackage.credits_remaining,
       creditsUsed: userPackage.credits_used,
-      startedAt: new Date(userPackage.started_at),
+      startedAt: new Date(userPackage.started_at || Date.now()),
       expiresAt: userPackage.expires_at ? new Date(userPackage.expires_at) : undefined,
-      isActive: userPackage.is_active,
+      isActive: userPackage.is_active ?? false,
       package: userPackage.packages ? {
         id: userPackage.packages.id,
         name: userPackage.packages.name,
@@ -215,11 +219,11 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
         creditLimit: userPackage.packages.credit_limit,
         priceMonthly: parseFloat(String(userPackage.packages.price_monthly || '0')),
         features: (userPackage.packages.features as string[]) || [],
-        isActive: userPackage.packages.is_active,
-        createdAt: new Date(userPackage.packages.created_at),
-        updatedAt: new Date(userPackage.packages.updated_at),
+        isActive: userPackage.packages.is_active ?? false,
+        createdAt: new Date(userPackage.packages.created_at || Date.now()),
+        updatedAt: new Date(userPackage.packages.updated_at || Date.now()),
         billingInterval: (userPackage.packages.billing_interval as 'monthly' | 'yearly') || 'monthly',
-        stripeYearlyPriceId: userPackage.packages.stripe_yearly_price_id,
+        stripeYearlyPriceId: userPackage.packages.stripe_yearly_price_id ?? undefined,
         isSubscription: userPackage.packages.is_subscription || false
       } : undefined,
       stripeSubscriptionId: userPackage.stripe_subscription_id || undefined,
@@ -232,7 +236,7 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
   }
 
   async createUserPackage(data: Omit<UserPackage, 'id'>): Promise<UserPackage> {
-    const { data: userPackage } = await supabase
+    const { data: userPackage, error } = await supabase
       .from('user_packages')
       .insert({
         user_id: data.userId,
@@ -255,15 +259,19 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
       `)
       .single();
 
+    if (error || !userPackage) {
+      throw new Error(error?.message || 'Failed to create user package');
+    }
+
     return {
       id: userPackage.id,
       userId: userPackage.user_id,
       packageId: userPackage.package_id,
       creditsRemaining: userPackage.credits_remaining,
       creditsUsed: userPackage.credits_used,
-      startedAt: new Date(userPackage.started_at),
+      startedAt: new Date(userPackage.started_at || Date.now()),
       expiresAt: userPackage.expires_at ? new Date(userPackage.expires_at) : undefined,
-      isActive: userPackage.is_active,
+      isActive: userPackage.is_active ?? false,
       package: userPackage.packages ? {
         id: userPackage.packages.id,
         name: userPackage.packages.name,
@@ -271,11 +279,11 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
         creditLimit: userPackage.packages.credit_limit,
         priceMonthly: parseFloat(String(userPackage.packages.price_monthly || '0')),
         features: (userPackage.packages.features as string[]) || [],
-        isActive: userPackage.packages.is_active,
-        createdAt: new Date(userPackage.packages.created_at),
-        updatedAt: new Date(userPackage.packages.updated_at),
+        isActive: userPackage.packages.is_active ?? false,
+        createdAt: new Date(userPackage.packages.created_at || Date.now()),
+        updatedAt: new Date(userPackage.packages.updated_at || Date.now()),
         billingInterval: (userPackage.packages.billing_interval as 'monthly' | 'yearly') || 'monthly',
-        stripeYearlyPriceId: userPackage.packages.stripe_yearly_price_id,
+        stripeYearlyPriceId: userPackage.packages.stripe_yearly_price_id ?? undefined,
         isSubscription: userPackage.packages.is_subscription || false
       } : undefined,
       stripeSubscriptionId: userPackage.stripe_subscription_id || undefined,
@@ -305,9 +313,9 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
       packageId: userPackage.package_id,
       creditsRemaining: userPackage.credits_remaining,
       creditsUsed: userPackage.credits_used,
-      startedAt: new Date(userPackage.started_at),
+      startedAt: new Date(userPackage.started_at || Date.now()),
       expiresAt: userPackage.expires_at ? new Date(userPackage.expires_at) : undefined,
-      isActive: userPackage.is_active,
+      isActive: userPackage.is_active ?? false,
       package: userPackage.packages ? {
         id: userPackage.packages.id,
         name: userPackage.packages.name,
@@ -315,11 +323,11 @@ export class SupabaseUserPackageRepository implements UserPackageRepository {
         creditLimit: userPackage.packages.credit_limit,
         priceMonthly: parseFloat(String(userPackage.packages.price_monthly || '0')),
         features: (userPackage.packages.features as string[]) || [],
-        isActive: userPackage.packages.is_active,
-        createdAt: new Date(userPackage.packages.created_at),
-        updatedAt: new Date(userPackage.packages.updated_at),
+        isActive: userPackage.packages.is_active ?? false,
+        createdAt: new Date(userPackage.packages.created_at || Date.now()),
+        updatedAt: new Date(userPackage.packages.updated_at || Date.now()),
         billingInterval: (userPackage.packages.billing_interval as 'monthly' | 'yearly') || 'monthly',
-        stripeYearlyPriceId: userPackage.packages.stripe_yearly_price_id,
+        stripeYearlyPriceId: userPackage.packages.stripe_yearly_price_id ?? undefined,
         isSubscription: userPackage.packages.is_subscription || false
       } : undefined,
       stripeSubscriptionId: userPackage.stripe_subscription_id || undefined,

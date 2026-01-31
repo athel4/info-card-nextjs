@@ -18,12 +18,12 @@ export class SupabaseUserRepository implements UserRepository {
 
     return {
       id: profile.id,
-      email: profile.email,
-      fullName: profile.full_name,
-      role: profile.role,
-      stripeAccId: (profile as any).stripe_acc_id || undefined,
-      createdAt: new Date(profile.created_at),
-      updatedAt: new Date(profile.updated_at)
+      email: profile.email ?? undefined,
+      fullName: profile.full_name ?? undefined,
+      role: profile.role ?? 'user',
+      stripeAccId: (profile as any).stripe_acc_id ?? undefined,
+      createdAt: new Date(profile.created_at || Date.now()),
+      updatedAt: new Date(profile.updated_at || Date.now())
     };
   }
 
@@ -38,12 +38,12 @@ export class SupabaseUserRepository implements UserRepository {
 
     return {
       id: profile.id,
-      email: profile.email,
-      fullName: profile.full_name,
-      role: profile.role,
-      stripeAccId: (profile as any).stripe_acc_id || undefined,
-      createdAt: new Date(profile.created_at),
-      updatedAt: new Date(profile.updated_at)
+      email: profile.email ?? undefined,
+      fullName: profile.full_name ?? undefined,
+      role: profile.role ?? 'user',
+      stripeAccId: (profile as any).stripe_acc_id ?? undefined,
+      createdAt: new Date(profile.created_at || Date.now()),
+      updatedAt: new Date(profile.updated_at || Date.now())
     };
   }
 
@@ -55,17 +55,17 @@ export class SupabaseUserRepository implements UserRepository {
 
     return profiles?.map(profile => ({
       id: profile.id,
-      email: profile.email,
-      fullName: profile.full_name,
-      role: profile.role,
-      stripeAccId: (profile as any).stripe_acc_id || undefined,
-      createdAt: new Date(profile.created_at),
-      updatedAt: new Date(profile.updated_at)
+      email: profile.email ?? undefined,
+      fullName: profile.full_name ?? undefined,
+      role: profile.role ?? 'user',
+      stripeAccId: (profile as any).stripe_acc_id ?? undefined,
+      createdAt: new Date(profile.created_at || Date.now()),
+      updatedAt: new Date(profile.updated_at || Date.now())
     })) || [];
   }
 
   async updateUser(id: string, data: Partial<User>): Promise<User> {
-    const { data: profile } = await supabase
+    const { data: profile, error } = await supabase
       .from('profiles')
       .update({
         full_name: data.fullName,
@@ -75,14 +75,18 @@ export class SupabaseUserRepository implements UserRepository {
       .select()
       .single();
 
+    if (error || !profile) {
+      throw new Error(error?.message || 'Failed to update user');
+    }
+
     return {
       id: profile.id,
-      email: profile.email,
-      fullName: profile.full_name,
-      role: profile.role,
-      stripeAccId: (profile as any).stripe_acc_id || undefined,
-      createdAt: new Date(profile.created_at),
-      updatedAt: new Date(profile.updated_at)
+      email: profile.email ?? undefined,
+      fullName: profile.full_name ?? undefined,
+      role: profile.role ?? 'user',
+      stripeAccId: (profile as any).stripe_acc_id ?? undefined,
+      createdAt: new Date(profile.created_at || Date.now()),
+      updatedAt: new Date(profile.updated_at || Date.now())
     };
   }
 }

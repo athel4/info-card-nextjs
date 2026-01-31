@@ -3,7 +3,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
-import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { X, Camera } from 'lucide-react';
 
 interface QRScannerProps {
@@ -123,9 +122,7 @@ export const QRScanner: React.FC<QRScannerProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="p-0 max-w-none w-screen h-screen border-0 bg-black flex flex-col">
-        <VisuallyHidden>
-          <DialogTitle>QR Code Scanner</DialogTitle>
-        </VisuallyHidden>
+        <DialogTitle className="sr-only">QR Code Scanner</DialogTitle>
         <div className="flex justify-between items-center p-4 bg-black/80">
           <h3 className="text-white font-medium">Scanning for QR Code...</h3>
           <Button

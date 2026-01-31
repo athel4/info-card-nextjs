@@ -13,11 +13,11 @@ export class SupabaseCreditUsageRepository implements CreditUsageRepository {
 
     return creditUsage?.map(cu => ({
       id: cu.id,
-      userId: cu.user_id,
-      packageId: cu.package_id,
-      creditsConsumed: cu.credits_consumed,
-      operationType: cu.operation_type,
-      operationDetails: cu.operation_details as Record<string, any> | undefined,
+      userId: cu.user_id ?? '',
+      packageId: cu.package_id ?? undefined,
+      creditsConsumed: cu.credits_consumed ?? 0,
+      operationType: cu.operation_type ?? '',
+      operationDetails: (cu.operation_details as Record<string, any>) ?? undefined,
       createdAt: new Date(cu.created_at || new Date())
     })) || [];
   }
@@ -30,11 +30,11 @@ export class SupabaseCreditUsageRepository implements CreditUsageRepository {
 
     return creditUsage?.map(cu => ({
       id: cu.id,
-      userId: cu.user_id,
-      packageId: cu.package_id,
-      creditsConsumed: cu.credits_consumed,
-      operationType: cu.operation_type,
-      operationDetails: cu.operation_details as Record<string, any> | undefined,
+      userId: cu.user_id ?? '',
+      packageId: cu.package_id ?? undefined,
+      creditsConsumed: cu.credits_consumed ?? 0,
+      operationType: cu.operation_type ?? '',
+      operationDetails: (cu.operation_details as Record<string, any>) ?? undefined,
       createdAt: new Date(cu.created_at || new Date())
     })) || [];
   }
@@ -58,11 +58,11 @@ export class SupabaseCreditUsageRepository implements CreditUsageRepository {
 
     return {
       id: creditUsage.id,
-      userId: creditUsage.user_id,
-      packageId: creditUsage.package_id,
-      creditsConsumed: creditUsage.credits_consumed,
-      operationType: creditUsage.operation_type,
-      operationDetails: creditUsage.operation_details as Record<string, any> | undefined,
+      userId: creditUsage.user_id ?? '',
+      packageId: creditUsage.package_id ?? undefined,
+      creditsConsumed: creditUsage.credits_consumed ?? 0,
+      operationType: creditUsage.operation_type ?? '',
+      operationDetails: (creditUsage.operation_details as Record<string, any>) ?? undefined,
       createdAt: new Date(creditUsage.created_at || new Date())
     };
   }

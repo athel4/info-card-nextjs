@@ -17,8 +17,8 @@ export class SupabaseUserPackageHistoryRepository implements UserPackageHistoryR
       id: data.id,
       userId: data.user_id,
       lastPackageId: data.last_package_id,
-      lastUpdated: new Date(data.last_updated),
-      createdAt: new Date(data.created_at)
+      lastUpdated: new Date(data.last_updated || Date.now()),
+      createdAt: new Date(data.created_at || Date.now())
     };
   }
 
@@ -44,14 +44,16 @@ export class SupabaseUserPackageHistoryRepository implements UserPackageHistoryR
       .select()
       .single();
 
-    if (error) throw error;
+    if (error || !data) {
+      throw error || new Error('Failed to create user package history');
+    }
 
     return {
       id: data.id,
       userId: data.user_id,
       lastPackageId: data.last_package_id,
-      lastUpdated: new Date(data.last_updated),
-      createdAt: new Date(data.created_at)
+      lastUpdated: new Date(data.last_updated || Date.now()),
+      createdAt: new Date(data.created_at || Date.now())
     };
   }
 }

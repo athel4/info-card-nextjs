@@ -95,17 +95,17 @@ export class SupabaseBusinessCardSessionRepository implements BusinessCardSessio
   private mapToEntity(data: any): BusinessCardSession {
     return {
       id: data.id,
-      userId: data.user_id,
-      sessionName: data.session_name,
-      filesProcessed: data.files_processed,
-      promptUsed: data.prompt_used,
-      templateId: data.template_id,
-      extractedData: data.extracted_data,
-      generatedResults: data.generated_results,
-      creditsConsumed: data.credits_consumed,
-      processingStatus: data.processing_status,
-      createdAt: new Date(data.created_at),
-      updatedAt: new Date(data.updated_at)
+      userId: data.user_id ?? undefined,
+      sessionName: data.session_name ?? undefined,
+      filesProcessed: data.files_processed ?? 0,
+      promptUsed: data.prompt_used ?? undefined,
+      templateId: data.template_id ?? undefined,
+      extractedData: data.extracted_data ?? undefined,
+      generatedResults: data.generated_results ?? undefined,
+      creditsConsumed: data.credits_consumed ?? 0,
+      processingStatus: data.processing_status ?? 'pending',
+      createdAt: new Date(data.created_at || Date.now()),
+      updatedAt: new Date(data.updated_at || Date.now())
     };
   }
 }

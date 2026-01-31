@@ -98,17 +98,17 @@ export class SupabasePaymentRepository implements PaymentRepository {
   private mapToPayment(data: any): Payment {
     return {
       id: data.id,
-      userId: data.user_id,
-      stripeSessionId: data.stripe_session_id,
-      amount: data.amount,
-      currency: data.currency,
-      status: data.status,
-      packageId: data.package_id,
-      creditsPurchased: data.credits_purchased,
-      createdAt: new Date(data.created_at),
-      updatedAt: new Date(data.updated_at),
-      stripeSubscriptionId: data.stripe_subscription_id,
-      paymentType: data.payment_type
+      userId: data.user_id ?? '',
+      stripeSessionId: data.stripe_session_id ?? undefined,
+      amount: data.amount ?? 0,
+      currency: data.currency ?? 'USD',
+      status: data.status ?? 'pending',
+      packageId: data.package_id ?? undefined,
+      creditsPurchased: data.credits_purchased ?? 0,
+      createdAt: new Date(data.created_at || Date.now()),
+      updatedAt: new Date(data.updated_at || Date.now()),
+      stripeSubscriptionId: data.stripe_subscription_id ?? undefined,
+      paymentType: data.payment_type ?? undefined
     };
   }
 }
