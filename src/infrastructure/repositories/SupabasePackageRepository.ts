@@ -19,12 +19,12 @@ export class SupabasePackageRepository implements PackageRepository {
       isActive: pkg.is_active || false,
       createdAt: new Date(pkg.created_at),
       updatedAt: new Date(pkg.updated_at),
-      stripePriceId: pkg.stripe_price_id,
+      stripePriceId: pkg.stripe_price_id ?? undefined,
       billingInterval: (pkg.billing_interval as 'monthly' | 'yearly') || 'monthly',
-      stripeYearlyPriceId: pkg.stripe_yearly_price_id,
+      stripeYearlyPriceId: pkg.stripe_yearly_price_id ?? undefined,
       isSubscription: pkg.is_subscription || false,
-      anonymousLimitId: pkg.anonymous_limit_id,
-      stripePaymentUrl: pkg.stripe_payment_url
+      anonymousLimitId: pkg.anonymous_limit_id ?? undefined,
+      stripePaymentUrl: pkg.stripe_payment_url ?? undefined
     })) || [];
   }
 
@@ -45,14 +45,14 @@ export class SupabasePackageRepository implements PackageRepository {
       isActive: pkg.is_active || false,
       createdAt: new Date(pkg.created_at),
       updatedAt: new Date(pkg.updated_at),
-      stripePriceId: pkg.stripe_price_id,
+      stripePriceId: pkg.stripe_price_id ?? undefined,
       billingInterval: (pkg.billing_interval as 'monthly' | 'yearly') || 'monthly',
-      stripeYearlyPriceId: pkg.stripe_yearly_price_id,
+      stripeYearlyPriceId: pkg.stripe_yearly_price_id ?? undefined,
       isSubscription: pkg.is_subscription || false,
-      anonymousLimitId: pkg.anonymous_limit_id,
-      stripePaymentUrl: pkg.stripe_payment_url,
-      planDescription:pkg.plan_description,
-      resetQuotaOnRenew:pkg.reset_quota_on_renew
+      anonymousLimitId: pkg.anonymous_limit_id ?? undefined,
+      stripePaymentUrl: pkg.stripe_payment_url ?? undefined,
+      planDescription: pkg.plan_description ?? undefined,
+      resetQuotaOnRenew: pkg.reset_quota_on_renew ?? undefined
     })) || [];
   }
 
@@ -75,12 +75,12 @@ export class SupabasePackageRepository implements PackageRepository {
       isActive: pkg.is_active || false,
       createdAt: new Date(pkg.created_at),
       updatedAt: new Date(pkg.updated_at),
-      stripePriceId: pkg.stripe_price_id,
+      stripePriceId: pkg.stripe_price_id ?? undefined,
       billingInterval: (pkg.billing_interval as 'monthly' | 'yearly') || 'monthly',
-      stripeYearlyPriceId: pkg.stripe_yearly_price_id,
+      stripeYearlyPriceId: pkg.stripe_yearly_price_id ?? undefined,
       isSubscription: pkg.is_subscription || false,
-      anonymousLimitId: pkg.anonymous_limit_id,
-      stripePaymentUrl: pkg.stripe_payment_url
+      anonymousLimitId: pkg.anonymous_limit_id ?? undefined,
+      stripePaymentUrl: pkg.stripe_payment_url ?? undefined
     };
   }
 
@@ -109,12 +109,12 @@ export class SupabasePackageRepository implements PackageRepository {
       isActive: pkg.is_active || false,
       createdAt: new Date(pkg.created_at),
       updatedAt: new Date(pkg.updated_at),
-      stripePriceId: pkg.stripe_price_id,
+      stripePriceId: pkg.stripe_price_id ?? undefined,
       billingInterval: (pkg.billing_interval as 'monthly' | 'yearly') || 'monthly',
-      stripeYearlyPriceId: pkg.stripe_yearly_price_id,
+      stripeYearlyPriceId: pkg.stripe_yearly_price_id ?? undefined,
       isSubscription: pkg.is_subscription || false,
-      anonymousLimitId: pkg.anonymous_limit_id,
-      stripePaymentUrl: pkg.stripe_payment_url
+      anonymousLimitId: pkg.anonymous_limit_id ?? undefined,
+      stripePaymentUrl: pkg.stripe_payment_url ?? undefined
     };
   }
 
@@ -144,12 +144,12 @@ export class SupabasePackageRepository implements PackageRepository {
       isActive: pkg.is_active || false,
       createdAt: new Date(pkg.created_at),
       updatedAt: new Date(pkg.updated_at),
-      stripePriceId: pkg.stripe_price_id,
+      stripePriceId: pkg.stripe_price_id ?? undefined,
       billingInterval: (pkg.billing_interval as 'monthly' | 'yearly') || 'monthly',
-      stripeYearlyPriceId: pkg.stripe_yearly_price_id,
+      stripeYearlyPriceId: pkg.stripe_yearly_price_id ?? undefined,
       isSubscription: pkg.is_subscription || false,
-      anonymousLimitId: pkg.anonymous_limit_id,
-      stripePaymentUrl: pkg.stripe_payment_url
+      anonymousLimitId: pkg.anonymous_limit_id ?? undefined,
+      stripePaymentUrl: pkg.stripe_payment_url ?? undefined
     };
   }
 
@@ -178,12 +178,12 @@ export class SupabasePackageRepository implements PackageRepository {
       isActive: pkg.is_active || false,
       createdAt: new Date(pkg.created_at),
       updatedAt: new Date(pkg.updated_at),
-      stripePriceId: pkg.stripe_price_id,
+      stripePriceId: pkg.stripe_price_id ?? undefined,
       billingInterval: (pkg.billing_interval as 'monthly' | 'yearly') || 'monthly',
-      stripeYearlyPriceId: pkg.stripe_yearly_price_id,
+      stripeYearlyPriceId: pkg.stripe_yearly_price_id ?? undefined,
       isSubscription: pkg.is_subscription || false,
-      anonymousLimitId: pkg.anonymous_limit_id,
-      stripePaymentUrl: pkg.stripe_payment_url
+      anonymousLimitId: pkg.anonymous_limit_id ?? undefined,
+      stripePaymentUrl: pkg.stripe_payment_url ?? undefined
     })) || [];
   }
 
@@ -205,12 +205,12 @@ export class SupabasePackageRepository implements PackageRepository {
       isActive: pkg.is_active || false,
       createdAt: new Date(pkg.created_at),
       updatedAt: new Date(pkg.updated_at),
-      stripePriceId: pkg.stripe_price_id,
+      stripePriceId: pkg.stripe_price_id ?? undefined,
       billingInterval: (pkg.billing_interval as 'monthly' | 'yearly') || 'monthly',
-      stripeYearlyPriceId: pkg.stripe_yearly_price_id,
+      stripeYearlyPriceId: pkg.stripe_yearly_price_id ?? undefined,
       isSubscription: pkg.is_subscription || false,
-      anonymousLimitId: pkg.anonymous_limit_id,
-      stripePaymentUrl: pkg.stripe_payment_url
+      anonymousLimitId: pkg.anonymous_limit_id ?? undefined,
+      stripePaymentUrl: pkg.stripe_payment_url ?? undefined
     })) || [];
   }
 }
