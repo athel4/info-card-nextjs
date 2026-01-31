@@ -1,0 +1,57 @@
+DEPLOYMENT INSTRUCTIONS
+=======================
+
+Your application has been successfully built for production deployment.
+The build output is configured as a Static Export, which means it can be hosted on any standard web server (Apache, Nginx, etc.) without needing a Node.js server.
+
+1. LOCATE BUILD FILES
+   ------------------
+   Navigate to the `out` directory inside `newBase`:
+   d:\vebmy\proj2\info-card-sorter\newBase\out
+
+   This folder contains all the HTML, CSS, JavaScript, and static assets required to run your application.
+
+2. UPLOAD TO WEB SERVER
+   --------------------
+   Use your FTP client (e.g., FileZilla) to connect to your web server.
+   Upload the CONTENTS of the `out` folder to your public web directory (usually `public_html`, `www`, or `htdocs`).
+
+   Ensure you upload the files *inside* `out`, not the `out` folder itself (unless you want your site at domain.com/out).
+
+3. SERVER CONFIGURATION (IMPORTANT)
+   --------------------------------
+   Since this is a Single Page Application (SPA) with client-side routing, you need to ensure your web server directs all requests to `index.html` (or the respective .html file) so that refreshing a page like `/dashboard` works.
+
+   FOR APACHE (cPanel/Shared Hosting):
+   Create or edit the `.htaccess` file in your `public_html` directory and add the following:
+
+   <IfModule mod_rewrite.c>
+     RewriteEngine On
+     RewriteBase /
+     RewriteRule ^index\.html$ - [L]
+     RewriteCond %{REQUEST_FILENAME} !-f
+     RewriteCond %{REQUEST_FILENAME} !-d
+     RewriteRule . /index.html [L]
+   </IfModule>
+
+   FOR NGINX:
+   Add `try_files $uri $uri/ /index.html;` to your location block.
+
+4. ENVIRONMENT VARIABLES
+   ---------------------
+   The production environment variables (Supabase, Stripe, etc.) have been baked into the build. You do not need to upload the `.env` file to the server.
+
+5. VERIFICATION
+   ------------
+   After uploading, visit your website URL (https://spark.vebmy.com).
+   - Test signing in.
+   - Test scanning a business card.
+   - Check if navigation works (e.g., go to Dashboard and refresh the page).
+
+TROUBLESHOOTING
+---------------
+- If you see 404 errors on refresh, check step 3 (Server Configuration).
+- If images are missing, ensure the `public` folder contents were uploaded correctly.
+- If "No data extracted" errors persist, ensure the Supabase Edge Functions are deployed and accessible.
+
+Deployment Package Ready!
