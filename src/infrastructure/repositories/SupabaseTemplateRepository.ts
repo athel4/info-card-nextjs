@@ -134,11 +134,11 @@ export class SupabaseTemplateRepository implements TemplateRepository {
       flexibilityLevel: data.flexibility_level as 'strict' | 'medium' | 'flexible',
       requiredPlaceholders: data.required_placeholders || [],
       generationCost: data.generation_cost || 2,
-      isActive: data.is_active,
+      isActive: data.is_active ?? false,
       sortOrder: data.sort_order || 0,
-      showInAnalyzerPage: data.show_in_analyzer_page || true,
-      createdAt: new Date(data.created_at),
-      updatedAt: new Date(data.updated_at)
+      showInAnalyzerPage: data.show_in_analyzer_page ?? true,
+      createdAt: new Date(data.created_at || Date.now()),
+      updatedAt: new Date(data.updated_at || Date.now())
     };
   }
 }

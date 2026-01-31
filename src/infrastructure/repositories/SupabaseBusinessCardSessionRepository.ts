@@ -104,8 +104,8 @@ export class SupabaseBusinessCardSessionRepository implements BusinessCardSessio
       generatedResults: data.generated_results,
       creditsConsumed: data.credits_consumed,
       processingStatus: data.processing_status,
-      createdAt: new Date(data.created_at),
-      updatedAt: new Date(data.updated_at)
+      createdAt: new Date(data.created_at || Date.now()),
+      updatedAt: new Date(data.updated_at || Date.now())
     };
   }
 }

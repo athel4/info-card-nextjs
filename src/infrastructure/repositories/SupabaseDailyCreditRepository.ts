@@ -289,10 +289,10 @@ export class SupabaseDailyCreditRepository implements DailyCreditRepository {
         userId: data.user_id || undefined,
         ipAddress: data.ip_address || undefined,
         creditsUsed: data.credits_used,
-        lastReset: new Date(data.last_reset),
+        lastReset: new Date(data.last_reset || Date.now()),
         creditsGrantedDate: data.credits_granted_date ? new Date(data.credits_granted_date) : undefined,
-        createdAt: new Date(data.created_at),
-        updatedAt: new Date(data.updated_at),
+        createdAt: new Date(data.created_at || Date.now()),
+        updatedAt: new Date(data.updated_at || Date.now()),
         browserFingerprint: data.browser_fingerprint || undefined
       };
     } catch (error) {

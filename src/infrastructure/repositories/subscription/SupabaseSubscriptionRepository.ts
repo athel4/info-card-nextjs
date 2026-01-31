@@ -52,9 +52,9 @@ export class SupabaseSubscriptionRepository implements SubscriptionRepository {
       features: data.features || [],
       stripeMonthlyPriceId: data.stripe_monthly_price_id,
       stripeYearlyPriceId: data.stripe_yearly_price_id,
-      isActive: data.is_active,
-      createdAt: new Date(data.created_at),
-      updatedAt: new Date(data.updated_at)
+      isActive: data.is_active ?? false,
+      createdAt: new Date(data.created_at || Date.now()),
+      updatedAt: new Date(data.updated_at || Date.now())
     };
   }
 }

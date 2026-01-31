@@ -110,8 +110,8 @@ export class SupabaseBusinessCardGeneratedResultRepository implements BusinessCa
       content: data.content,
       actionUrl: data.action_url,
       metadata: data.metadata,
-      createdAt: new Date(data.created_at),
-      updatedAt: new Date(data.updated_at)
+      createdAt: new Date(data.created_at || Date.now()),
+      updatedAt: new Date(data.updated_at || Date.now())
     };
   }
 }

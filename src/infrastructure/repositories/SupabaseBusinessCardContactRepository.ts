@@ -400,8 +400,8 @@ export class SupabaseBusinessCardContactRepository implements BusinessCardContac
       tertiaryPostalCode: data.tertiary_postal_code,
       linkedinUrl: data.linkedin_url,
       notes: data.notes,
-      createdAt: new Date(data.created_at),
-      updatedAt: new Date(data.updated_at)
+      createdAt: new Date(data.created_at || Date.now()),
+      updatedAt: new Date(data.updated_at || Date.now())
     };
   }
 }

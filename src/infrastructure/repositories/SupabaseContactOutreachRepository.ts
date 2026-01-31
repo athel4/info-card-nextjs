@@ -24,7 +24,7 @@ export class SupabaseContactOutreachRepository implements ContactOutreachReposit
       actionUrl: result.action_url,
       isGenerated: true,
       templateId: result.metadata?.template_id,
-      createdAt: new Date(result.created_at)
+      createdAt: new Date(result.created_at || Date.now())
     })) || [];
 
     // Add basic contact actions (email, phone) if they exist

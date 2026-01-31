@@ -22,8 +22,8 @@ export class SupabaseUserRepository implements UserRepository {
       fullName: profile.full_name,
       role: profile.role,
       stripeAccId: (profile as any).stripe_acc_id || undefined,
-      createdAt: new Date(profile.created_at),
-      updatedAt: new Date(profile.updated_at)
+      createdAt: new Date(profile.created_at || Date.now()),
+      updatedAt: new Date(profile.updated_at || Date.now())
     };
   }
 
@@ -42,8 +42,8 @@ export class SupabaseUserRepository implements UserRepository {
       fullName: profile.full_name,
       role: profile.role,
       stripeAccId: (profile as any).stripe_acc_id || undefined,
-      createdAt: new Date(profile.created_at),
-      updatedAt: new Date(profile.updated_at)
+      createdAt: new Date(profile.created_at || Date.now()),
+      updatedAt: new Date(profile.updated_at || Date.now())
     };
   }
 
@@ -59,8 +59,8 @@ export class SupabaseUserRepository implements UserRepository {
       fullName: profile.full_name,
       role: profile.role,
       stripeAccId: (profile as any).stripe_acc_id || undefined,
-      createdAt: new Date(profile.created_at),
-      updatedAt: new Date(profile.updated_at)
+      createdAt: new Date(profile.created_at || Date.now()),
+      updatedAt: new Date(profile.updated_at || Date.now())
     })) || [];
   }
 
@@ -85,8 +85,8 @@ export class SupabaseUserRepository implements UserRepository {
       fullName: profile.full_name,
       role: profile.role,
       stripeAccId: (profile as any).stripe_acc_id || undefined,
-      createdAt: new Date(profile.created_at),
-      updatedAt: new Date(profile.updated_at)
+      createdAt: new Date(profile.created_at || Date.now()),
+      updatedAt: new Date(profile.updated_at || Date.now())
     };
   }
 }

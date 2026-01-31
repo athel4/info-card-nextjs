@@ -105,8 +105,8 @@ export class SupabasePaymentRepository implements PaymentRepository {
       status: data.status,
       packageId: data.package_id,
       creditsPurchased: data.credits_purchased,
-      createdAt: new Date(data.created_at),
-      updatedAt: new Date(data.updated_at),
+      createdAt: new Date(data.created_at || Date.now()),
+      updatedAt: new Date(data.updated_at || Date.now()),
       stripeSubscriptionId: data.stripe_subscription_id,
       paymentType: data.payment_type
     };
