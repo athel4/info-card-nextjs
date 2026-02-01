@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { TemplateManager } from '../components/templates/TemplateManager';
+import { TemplateManager } from '@/presentation/components/templates/TemplateManager';
 import Header from '../components/shared/Header';
 
 const TemplatesPage: React.FC = () => {

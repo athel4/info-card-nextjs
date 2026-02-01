@@ -199,7 +199,7 @@ function encodeUUIDsToBase36(uuid1: any, uuid2: any) {
         variant: (pkg.tier === 'premium' ? 'default' : 'outline') as ButtonVariant,
         disabled: !!processingPayment,
         to: `/signup?package=${pkg.tier}`,
-        onClick: null
+        onClick: undefined
       };
     }
 
@@ -210,7 +210,7 @@ function encodeUUIDsToBase36(uuid1: any, uuid2: any) {
         variant: 'outline' as ButtonVariant,
         disabled: true,
         to: null,
-        onClick: null
+        onClick: undefined
       };
     }
 
@@ -227,7 +227,6 @@ function encodeUUIDsToBase36(uuid1: any, uuid2: any) {
       text: buttonText,
       variant: 'default' as ButtonVariant,
       disabled: !!processingPayment,
-      to: null,
       to: null,
       //onClick: () => handlePurchase(pkg)
       onClick: () => setShowBetaModal(true)

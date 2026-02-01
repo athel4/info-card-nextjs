@@ -1,16 +1,16 @@
-import { useLocation } from "react-router-dom";
+'use client';
 import { useEffect } from "react";
 import { SEOHead } from '@/components/SEOHead';
 
 const NotFound = () => {
-  const location = useLocation();
-
   useEffect(() => {
-    console.error(
-      "404 Error: User attempted to access non-existent route:",
-      location.pathname
-    );
-  }, [location.pathname]);
+    if (typeof window !== 'undefined') {
+      console.error(
+        "404 Error: User attempted to access non-existent route:",
+        window.location.pathname
+      );
+    }
+  }, []);
 
   return (
     <>

@@ -216,6 +216,7 @@ const Index = () => {
       }
 
       const { extractedData, generatedResults: results, creditsUsed } = response;
+      const usedCredits = creditsUsed ?? 0;
 
       if (!extractedData || extractedData.length === 0) {
         throw new Error('No data extracted');
@@ -235,7 +236,7 @@ const Index = () => {
       
       toast({
         title: "Processing Complete!",
-        description: `Successfully processed ${extractedData.length} business card${extractedData.length > 1 ? 's' : ''} using ${creditsUsed} credit${creditsUsed > 1 ? 's' : ''}.`,
+        description: `Successfully processed ${extractedData.length} business card${extractedData.length > 1 ? 's' : ''} using ${usedCredits} credit${usedCredits > 1 ? 's' : ''}.`,
       });
 
     } catch (error) {
