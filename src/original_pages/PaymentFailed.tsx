@@ -1,22 +1,23 @@
+'use client';
 import React, { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { XCircle, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const PaymentFailed: React.FC = () => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
 
   useEffect(() => {
     // Auto redirect after 10 seconds
     const timer = setTimeout(() => {
-      navigate('/packages');
+      router.push('/packages');
     }, 10000);
 
     return () => clearTimeout(timer);
-  }, [navigate]);
+  }, [router]);
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center py-8">
@@ -40,7 +41,7 @@ export const PaymentFailed: React.FC = () => {
 
           <div className="space-y-2">
             <Button 
-              onClick={() => navigate('/packages')} 
+              onClick={() => router.push('/packages')} 
               className="w-full"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -48,7 +49,7 @@ export const PaymentFailed: React.FC = () => {
             </Button>
             
             <Button 
-              onClick={() => navigate('/')} 
+              onClick={() => router.push('/')} 
               variant="outline" 
               className="w-full"
             >

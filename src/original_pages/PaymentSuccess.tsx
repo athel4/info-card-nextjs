@@ -1,5 +1,6 @@
+'use client';
 import React, { useEffect, useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { CheckCircle, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,8 +8,8 @@ import { useCredit } from '@/presentation/contexts/CreditContext';
 import { toast } from 'sonner';
 
 export const PaymentSuccess: React.FC = () => {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const sessionId = searchParams.get('session_id');
   const { refreshCredits, isRefreshing } = useCredit();
   const [isRefreshingManually, setIsRefreshingManually] = useState(false);
@@ -25,7 +26,7 @@ export const PaymentSuccess: React.FC = () => {
 
     // Auto redirect after 8 seconds (increased to give time for credit refresh)
     const timer = setTimeout(() => {
-      navigate('/');
+      router.push('/');
     }, 8000);
 
     return () => clearTimeout(timer);
@@ -72,7 +73,7 @@ export const PaymentSuccess: React.FC = () => {
 
           <div className="space-y-2">
             <Button 
-              onClick={() => navigate('/')} 
+              onClick={() => router.push('/')} 
               className="w-full"
               disabled={isRefreshing || isRefreshingManually}
             >
@@ -81,7 +82,7 @@ export const PaymentSuccess: React.FC = () => {
             
             <div className="flex gap-2">
               <Button 
-                onClick={() => navigate('/packages')} 
+                onClick={() => router.push('/packages')} 
                 variant="outline" 
                 className="flex-1"
                 disabled={isRefreshing || isRefreshingManually}
